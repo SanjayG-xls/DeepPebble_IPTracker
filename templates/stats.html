@@ -2,36 +2,2099 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deep Pebble | Tracking Active</title>
-    <style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Pebble Tech — Simplified Innovations</title>
+
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,700&f[]=inter@400,600&f[]=inter-tight@700&display=swap" rel="stylesheet">
+
+            <style>
+        /* --- LARGE PERMANENT MIDDLE-RIGHT BOX --- */
+.permanent-tracker-box {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%); /* Centers it vertically */
+    width: 280px;
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(25px) saturate(160%);
+    -webkit-backdrop-filter: blur(25px) saturate(160%);
+    border: 2px solid var(--color-glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    z-index: 2000; /* Stays above everything */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transition: var(--transition-slow);
+    text-align: center;
+    border-left: 4px solid var(--color-peach); /* Bold accent line */
+}
+
+.permanent-tracker-box:hover {
+    border-color: var(--color-purple);
+    box-shadow: 0 0 30px rgba(124, 92, 255, 0.2);
+    transform: translateY(-52%); /* Slight lift on hover */
+}
+
+.tracker-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.header-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--color-text-muted);
+}
+
+.tracker-msg {
+    font-family: var(--font-subheading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-pink);
+    margin-bottom: 0.5rem;
+}
+
+#live-ip {
+    font-family: var(--font-heading);
+    font-size: 1.8rem; /* Big IP display */
+    margin: 10px 0;
+    background: linear-gradient(90deg, var(--color-peach), var(--color-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tracker-desc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+}
+
+.tracker-footer {
+    margin-top: 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #28a745; /* Green for secure status */
+    border-top: 1px solid var(--color-glass-border);
+    padding-top: 1rem;
+}
+
+/* Pulsing Animation */
+.recording-pulse {
+    height: 12px;
+    width: 12px;
+    background-color: var(--color-pink);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--color-pink);
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Mobile adjustments */
+@media (max-width: 1024px) {
+    .permanent-tracker-box {
+        width: 220px;
+        right: 15px;
+        padding: 1.5rem;
+    }
+    #live-ip { font-size: 1.4rem; }
+}
+        /* --- IP WARNING MODAL STYLE --- */
+.warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 16, 40, 0.85); /* Matches your deep indigo */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.warning-modal {
+    max-width: 450px;
+    text-align: center;
+    padding: 3rem;
+    border: 1px solid var(--color-peach); /* Peach accent for warning */
+    box-shadow: 0 0 50px rgba(255, 184, 107, 0.15);
+}
+
+.warning-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px var(--color-peach));
+}
+
+.warning-modal h2 {
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, var(--color-peach), var(--color-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.warning-modal p {
+    margin-bottom: 2rem;
+    color: var(--color-text);
+}
+
+.warning-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+        /* DEEP PEBBLE TECH - STYLE.CSS
+            Theme: Light Glass Futuristic + Indian Technofuturism
+            Palette: Sunset AI (Peach -> Pink -> Purple -> Deep Blue)
+        */
+
+        /* --- 1. ROOT & FONT DEFINITIONS --- */
+        :root {
+            /* New Sunset-Indigo Palette */
+            --color-peach: #FFB86B; /* warm accent */
+            --color-pink: #FF6B9A;  /* highlight */
+            --color-purple: #7C5CFF; /* energetic violet */
+            --color-blue: #071028;   /* deep indigo background */
+
+            /* UI Colors */
+            --color-white: #ffffff;
+            --color-soft-white: #f6f7fb;
+            --color-text: #EAF1FF; /* light text for contrast */
+            --color-text-muted: #B7C0D9;
+            --color-glass-bg: rgba(255, 255, 255, 0.035);
+            --color-glass-border: rgba(255, 255, 255, 0.08);
+            --color-glass-border-hover: rgba(124, 92, 255, 0.14);
+
+            /* Typography */
+            --font-heading: 'Clash Display', sans-serif;
+            --font-subheading: 'Inter Tight', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Transitions */
+            --transition-fast: 0.18s ease-in-out;
+            --transition-slow: 0.36s ease-in-out;
+
+            /* Header Height for Scroll Offset */
+            --header-height: 90px;
+        }
+
+        /* --- 2. GLOBAL & RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: #0f0f0f;
-            color: #ffffff;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: var(--font-body);
+            background-color: var(--color-blue);
+            color: var(--color-text);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-white);
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--color-text-muted);
+        }
+
+        a {
+            color: var(--color-white);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Anchor link offset for fixed header */
+        section[id] {
+            scroll-margin-top: var(--header-height);
+        }
+
+
+        /* --- 3. ANIMATED GRADIENT & PARALLAX --- */
+
+        .gradient-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 180deg at 50% 50%,
+                #0A0A0A 0%,
+                #1A1A1A 15%,
+                #2A2A2A 35%,
+                #FFFFFF 60%,
+                #2A2A2A 80%,
+                #1A1A1A 95%,
+                #0A0A0A 100%
+            );
+            animation: rotate-bg 50s linear infinite;
+            z-index: -10;
+            opacity: 0.15;
+            filter: blur(120px);
+        }
+
+        @keyframes rotate-bg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Parallax Layers */
+        .parallax-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -9;
+            pointer-events: none;
+        }
+        .layer-1 { /* Stars/Particles */
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="%23FFFFFF"/><circle cx="50" cy="80" r="1" fill="%23F5F5F5"/><circle cx="90" cy="30" r="1" fill="%23CCCCCC"/></svg>');
+            background-size: 500px 500px;
+            opacity: 0.15;
+        }
+        .layer-2 { /* Aurora Fog */
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05), transparent 40%),
+                        radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.05), transparent 40%);
+            animation: pulse-fog 18s ease-in-out infinite alternate;
+        }
+        .layer-3 { /* Glass Streaks */
+            background: linear-gradient(115deg, transparent 48%, rgba(255, 255, 255, 0.1) 50%, transparent 52%);
+            opacity: 0.2;
+        }
+
+        @keyframes pulse-fog {
+            from { opacity: 0.3; transform: scale(1); }
+            to { opacity: 0.6; transform: scale(1.2); }
+        }
+
+
+        /* --- 4. GLOBAL UI COMPONENTS --- */
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--color-glass-bg);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--color-glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition-slow);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--color-glass-border-hover);
+            box-shadow: 0 0 40px rgba(255, 103, 125, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--color-glass-border);
+            border-radius: 50px;
+            font-family: var(--font-subheading);
+            font-weight: 700;
+            transition: var(--transition-fast);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:focus-visible {
+            outline: 3px solid rgba(255,255,255,0.12);
+            outline-offset: 3px;
+        }
+        .btn-primary {
+            background: var(--color-white);
+            color: var(--color-blue);
+            border-color: var(--color-white);
+        }
+        .btn-primary:hover {
+            background: #FFFFFF;
+            border-color: #FFFFFF;
+            color: #000000;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-white);
+            backdrop-filter: blur(5px);
+        }
+        .btn-secondary:hover {
+            background: var(--color-glass-bg);
+            border-color: var(--color-white);
+        }
+
+        /* --- 5. HEADER & NAVIGATION --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 5%;
+            height: var(--header-height);
+        }
+        .glass-nav {
+            background: rgba(12, 0, 50, 0.1); /* Darker glass for nav */
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--color-glass-border);
+        }
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--color-glass-border);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .nav-toggle .hamburger,
+        .nav-toggle .hamburger::before,
+        .nav-toggle .hamburger::after {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--color-white);
+            position: relative;
+        }
+        .nav-toggle .hamburger::before,
+        .nav-toggle .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+        .nav-toggle .hamburger::before { top: -6px; }
+        .nav-toggle .hamburger::after { top: 6px; }
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .nav-logo:hover {
+            color: var(--color-peach);
+        }
+        .main-header nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        .main-header nav a {
+            font-family: var(--font-subheading);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            position: relative;
+            padding: 0.5rem;
+        }
+        .main-header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #FFFFFF, #999999);
+            transition: var(--transition-fast);
+        }
+        .main-header nav a:hover,
+        .main-header nav a.active {
+            color: var(--color-white);
+        }
+        .main-header nav a:hover::after,
+        .main-header nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- 6. FOOTER --- */
+        .main-footer {
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid var(--color-glass-border);
+            margin-top: 5rem;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .footer-slogan {
+                font-family: var(--font-heading);
+                font-size: 2rem;
+                font-weight: 700;
+            }
+            /* Static footer gradient text (animation removed) */
+            .animated-gradient-text {
+                background: linear-gradient(90deg, #FFB86B, #7C5CFF);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-size: 100% 100%;
+                animation: none !important;
+            }
+            @keyframes gradient-text { /* kept for compatibility but unused */ }
+        }
+        .animated-gradient-text {
+            background: linear-gradient(90deg, #FFFFFF, #808080, #000000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-text 5s linear infinite;
+        }
+        @keyframes gradient-text {
+            from { background-position: 0% 50%; }
+            to { background-position: 200% 50%; }
+        }
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .footer-links a {
+            color: var(--color-text-muted);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+        .footer-links img.social-icon {
+            width: 28px;
+            height: auto;
+            display: inline-block;
+        }
+        .footer-legal {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        /* --- 7. ANIMATIONS & INTERACTIONS --- */
+
+        /* Particle Cursor */
+        .particle-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #FFFFFF, #CCCCCC);
+            animation: particle-fade 1s forwards;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        @keyframes particle-fade {
+            to {
+                opacity: 0;
+                transform: scale(0.5) translate(var(--tx), var(--ty));
+            }
+        }
+
+        /* Mouse Orbit Glow - disabled (removed white circle effect) */
+        body::before { display: none !important; }
+
+        /* Scroll Reveal */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Dividers */
+        .gradient-divider {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, #FFFFFF, #808080, #000000);
+            margin: 4rem 0;
+            opacity: 0.5;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- 8. PAGE: HOME (REFRESHED HERO) --- */
+        .hero-section {
+            min-height: calc(100vh - var(--header-height));
+            display: grid;
+            align-items: center;
+            position: relative;
+            padding: 5.5rem 0 3rem;
+            overflow: visible;
+            background: linear-gradient(180deg, var(--color-blue) 0%, rgba(7,16,40,0.86) 60%);
+            background-image: radial-gradient(circle at 12% 22%, rgba(255,184,107,0.06), transparent 12%), radial-gradient(circle at 82% 28%, rgba(124,92,255,0.05), transparent 18%);
+        }
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 520px;
+            gap: 2rem;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fade-in-up 600ms ease-out;
+        }
+        .hero-kicker {
+            display: inline-block;
+            font-family: var(--font-subheading);
+            font-weight: 700;
+            color: var(--color-white);
+            background: linear-gradient(90deg, rgba(255,184,107,0.12), rgba(124,92,255,0.06));
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.02;
+            margin: 0;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--color-peach), var(--color-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-family: var(--font-subheading);
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            max-width: 60ch;
+            line-height: 1.6;
+            margin: 0.25rem 0 0 0;
+        }
+        .hero-cta { display: flex; gap: 0.75rem; margin-top: 1.25rem; align-items: center; flex-wrap: wrap; }
+        .btn-primary { background: linear-gradient(90deg, var(--color-peach), var(--color-purple)); color: var(--color-blue); border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,92,255,0.12); }
+
+        .hero-visual-wrap { position: relative; display: grid; place-items: center; pointer-events: none; z-index: 4; }
+        .hero-copy { position: relative; z-index: 6; }
+        /* Decorative text mural behind the hero content */
+        .hero-mural {
+            position: absolute;
+            left: 50%;
+            top: 28%;
+            transform: translate(-50%, -28%);
+            font-weight: 900;
+            font-size: clamp(64px, 9vw, 220px);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: transparent;
+            background: linear-gradient(90deg, rgba(124,92,255,0.14), rgba(255,107,154,0.09));
+            -webkit-background-clip: text;
+            background-clip: text;
+            opacity: 1; /* per-letter spans control visible opacity */
+            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
+            text-align: center;
+        }
+        /* Prevent selection/copy from causing visual overlay or enlargement */
+        .hero-mural, .hero-mural span {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .hero-mural::selection, .hero-mural span::selection {
+            background: transparent;
+            color: inherit;
+        }
+
+        /* Per-letter fading styles */
+        .hero-mural span { display: inline-block; transition: none; -webkit-background-clip: text; background-clip: text; color: inherit; }
+        .hero-mural span.mural-fade-strong { opacity: 0.03; filter: blur(0.6px); transform: translateY(2px); }
+        .hero-mural span.mural-fade-mid { opacity: 0.06; filter: blur(0.2px); transform: translateY(1px); }
+        .hero-mural span.mural-base { opacity: 0.12; }
+        .hero-mural span.mural-space { opacity: 0.02; width: 0.35em; display:inline-block; }
+
+        @media (max-width: 900px) {
+            .hero-mural { font-size: clamp(40px, 12vw, 120px); top: 22%; transform: translate(-50%, -22%); }
+            .hero-mural span.mural-fade-strong { opacity: 0.04; }
+            .hero-mural span.mural-fade-mid { opacity: 0.08; }
+            .hero-mural span.mural-base { opacity: 0.14; }
+        }
+        .hero-visual {
+            width: 100%; height: 460px; max-width: 520px; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124,92,255,0.06), rgba(255,107,154,0.03));
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 40px 100px rgba(3,8,20,0.6);
+            display: grid; place-items: center; overflow: hidden;
+        }
+        .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .panel-illustration { width: 100%; height: auto; margin-bottom: 1rem; border-radius: 12px; }
+        .hero-badge { position: absolute; top: 20px; left: 20px; padding: 10px 14px; border-radius: 12px; background: rgba(0,0,0,0.35); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.06); }
+        .hero-badge-text { font-size: 0.9rem; color: var(--color-text); font-weight: 600; }
+        .scroll-down-indicator { position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%); color: var(--color-text-muted); }
+        @media (max-width: 1024px) {
+            .hero-container { grid-template-columns: 1fr; gap: 1.6rem; }
+            .hero-title { font-size: 2.4rem; }
+            .hero-visual { max-width: 100%; height: 320px; }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes typewriter {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        @keyframes blink {
+            0%, 100% { border-right-color: transparent; }
+            50% { border-right-color: #FFFFFF; }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(200, 200, 200, 0.1); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(200, 200, 200, 0.2); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Home Teaser Section */
+        .page-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .text-center { text-align: center; }
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .teaser-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-white);
+        }
+        .teaser-card span {
+            margin-top: 1rem;
+            display: inline-block;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        /* --- 9. PAGE: GENERIC CONTENT PAGE --- */
+        .content-page {
+            padding-top: 120px; /* Nav offset */
+        }
+        .page-hero {
+            text-align: center;
+            max-width: 900px;
+            margin: 2rem auto 4rem auto;
+            padding: 0 1rem;
+        }
+        .page-title {
+            font-size: 5rem;
+            line-height: 1.1;
+            background: linear-gradient(120deg, #FFFFFF, #808080, #000000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+        .page-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
+            margin-top: 1rem;
+        }
+
+        /* --- 10. PAGE: ABOUT --- */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        .split-layout.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        .split-layout.reverse .split-content { order: 2; }
+        .split-layout.reverse .split-visual { order: 1; }
+
+        .visual-placeholder {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            background: var(--color-glass-bg);
+            border: 1px solid var(--color-glass-border);
+            display: grid;
+            place-items: center;
+            font-family: var(--font-subheading);
+            color: var(--color-text-muted);
+        }
+        .cultural-texture {
+            background: linear-gradient(45deg, rgba(128, 128, 128, 0.1), rgba(255, 255, 255, 0.08)),
+                        url('https://www.transparenttextures.com/patterns/subtle-grunge.png');
+        }
+
+        /* Floating Pebbles */
+        .floating-pebbles-container {
+            position: relative;
+            height: 400px;
+        }
+        .pebble {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+            border-radius: 50%;
+            border: 1px solid var(--color-glass-border);
+            backdrop-filter: blur(5px);
+            animation: float 10s ease-in-out infinite;
+        }
+        .pebble.p1 {
+            width: 100px; height: 100px; top: 10%; left: 20%; animation-duration: 8s;
+        }
+        .pebble.p2 {
+            width: 60px; height: 60px; top: 40%; left: 60%; animation-duration: 12s; animation-delay: -3s;
+        }
+        .pebble.p3 {
+            width: 80px; height: 80px; top: 70%; left: 30%; animation-duration: 10s; animation-delay: -6s;
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .value-card h3 {
+            color: #FFFFFF;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: var(--color-glass-border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #FFFFFF, #808080);
+            border: 3px solid var(--color-blue);
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
+            transition: var(--transition-slow);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        .timeline-item.visible .timeline-dot {
+            background: linear-gradient(135deg, #000000, #808080);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+        .timeline-content {
+            padding: 1.5rem;
+        }
+        .timeline-content h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Products removed: consolidated styling replaced by enhanced Yovedha visuals */
+        /* Yovedha visuals & demo */
+        .yovedha-demo {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        .yovedha-demo .demo-panel {
+            padding: 2rem;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+            border: 1px solid var(--color-glass-border);
+            backdrop-filter: blur(8px);
+        }
+        .memory-graph svg { width: 100%; height: 320px; display: block; }
+        .memory-node { fill: #FFFFFF; opacity: 0.14; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .memory-node.active { opacity: 1; transform: scale(1.14); filter: drop-shadow(0 6px 18px rgba(124,92,255,0.18)); }
+        .pulse { animation: pulse-node 2.6s ease-out infinite; }
+        @keyframes pulse-node { 0% { transform: scale(1); opacity: 0.9 } 50% { transform: scale(1.12); opacity: 0.6 } 100% { transform: scale(1); opacity: 0.9 } }
+        .yovedha-cta { display:flex; gap:1rem; align-items:center; margin-top:1.25rem; }
+        .typing { border-right: 2px solid rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; display:inline-block; }
+        .chat-bubble.ai.typing { background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+        @media (max-width:1024px) { .yovedha-demo { grid-template-columns: 1fr; } }
+
+        /* --- 12. PAGE: YOVEDHA.AI --- */
+        .yovedha-hero {
+            margin-bottom: 0;
+        }
+        .yovedha-hero-logo {
+            width: 120px;
+            height: 120px;
+            font-size: 4rem;
+            margin: 0 auto 1.5rem auto;
+            animation: pulse-glow 4s ease-in-out infinite, float 6s ease-in-out infinite;
+        }
+        .chat-mockup {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-bubble {
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            max-width: 80%;
+        }
+        .chat-bubble p {
+            color: var(--color-text);
+        }
+        .chat-bubble.user {
+            background: linear-gradient(90deg, var(--color-peach), var(--color-pink));
+            border-bottom-right-radius: 5px;
+            align-self: flex-end;
+        }
+        .chat-bubble.user p { color: var(--color-blue); }
+        .chat-bubble.ai {
+            background: var(--color-glass-bg);
+            border: 1px solid var(--color-glass-border);
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+        }
+        .audio-wave {
+            display: flex;
+            gap: 4px;
+            height: 50px;
+            align-items: flex-end;
+            margin-top: 2rem;
+        }
+        .audio-wave .bar {
+            width: 8px;
+            background: linear-gradient(#FFFFFF, #CCCCCC);
+            border-radius: 4px;
+            animation: soundwave 1.5s ease-in-out infinite alternate;
+        }
+        .audio-wave .bar:nth-child(2) { animation-delay: -0.2s; }
+        .audio-wave .bar:nth-child(3) { animation-delay: -0.4s; }
+        .audio-wave .bar:nth-child(4) { animation-delay: -0.6s; }
+        .audio-wave .bar:nth-child(5) { animation-delay: -0.8s; }
+        @keyframes soundwave {
+            from { height: 10px; }
+            to { height: 50px; }
+        }
+        .memory-graph {
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(128, 128, 128, 0.08));
+        }
+        .hybrid-visual {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
+        .hybrid-card {
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            flex-basis: 350px;
         }
-        h1 { color: #007bff; margin-bottom: 10px; }
-        p { color: #888; }
+        .hybrid-connector {
+            font-size: 3rem;
+            color: var(--color-text-muted);
+        }
+
+        /* --- 13. PAGE: FAQ --- */
+        .faq-container {
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+        .faq-item {
+            margin-bottom: 1rem;
+            padding: 0; /* Remove padding from card */
+            overflow: hidden;
+            transition: var(--transition-slow);
+        }
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: var(--font-subheading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-white);
+            transition: var(--transition-fast);
+        }
+        .faq-icon {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            transition: var(--transition-fast);
+        }
+        .faq-item:hover .faq-question {
+            color: #FFFFFF;
+        }
+        .faq-item:hover .faq-icon {
+            color: #FFFFFF;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: #000000;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .faq-answer p {
+            padding: 0 2rem 1.5rem 2rem;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+        /* explicit <br> styling removed — keep markup semantic */
+
+        /* --- 14. PAGE: COMMUNITY --- */
+        .community-hero {
+            text-align: center;
+        }
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .community-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            transition: var(--transition-slow);
+        }
+        .community-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        .community-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            animation: float 8s ease-in-out infinite;
+        }
+        .icon-whatsapp { background: #25D366; color: white; animation-delay: -1s;}
+        .icon-discord { background: #5865F2; color: white; animation-delay: -3s;}
+        .icon-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; animation-delay: -5s;}
+
+        .community-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .community-card span {
+            margin-top: 1rem;
+            display: inline-block;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+        .cta-banner {
+            text-align: center;
+            padding: 3rem;
+            margin-top: 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(128, 128, 128, 0.08));
+            border-color: #000000;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        }
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-banner .btn {
+            margin-top: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Yovedha Button */
+        .yovedha-btn {
+            margin-top: 2.5rem;
+            margin-bottom: 0;
+            display: block;
+            width: fit-content;
+        }
+
+        /* --- 15. RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            h1, .hero-title, .page-title { font-size: 3.5rem; }
+            h2, .section-title { font-size: 2.5rem; }
+            .hero-subtitle, .page-subtitle { font-size: 1.25rem; }
+
+            .main-header { padding: 1rem 5%; }
+            .main-header nav { display: none; } /* Hidden by default on small screens; toggled by .nav-content.open */
+            .nav-toggle { display: inline-flex; }
+            .nav-content.open nav {
+                display: block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: var(--header-height);
+                background: rgba(10,10,20,0.9);
+                padding: 1rem 5%;
+                border-bottom: 1px solid var(--color-glass-border);
+            }
+            .nav-content.open nav ul {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .nav-content.open nav a { padding: 0.75rem 0; }
+
+            .split-layout, .split-layout.reverse { grid-template-columns: 1fr; }
+            .split-layout.reverse .split-content { order: 1; }
+            .split-layout.reverse .split-visual { order: 2; }
+            .split-visual { height: 300px; }
+
+            .timeline::after { left: 30px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content { text-align: left; }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot { left: 20px; }
+
+            .product-content { grid-template-columns: 1fr; }
+            .product-visual { order: 1; height: 300px;}
+            .product-info { order: 2; }
+            .product-name { font-size: 3rem; }
+
+            .hybrid-visual { flex-direction: column; }
+        }
+
+        /* --- NAV: Interactive / Creative --- */
+        .main-header { position: relative; z-index: 60; }
+        .nav-content { position: relative; }
+        .main-header nav { position: relative; }
+        .main-header nav ul { display:flex; gap:1.25rem; align-items:center; }
+        .main-header nav a {
+            position: relative;
+            padding: 0.6rem 0.15rem;
+            color: var(--color-text);
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: color 220ms ease, transform 220ms ease;
+            text-decoration: none;
+        }
+        .main-header nav a:hover, .main-header nav a:focus {
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            outline: none;
+        }
+        .nav-indicator {
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            height: 6px;
+            width: 40px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--color-peach), var(--color-purple));
+            transform: translateX(0);
+            transition: transform 360ms cubic-bezier(.2,.9,.3,1), width 360ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease;
+            pointer-events: none;
+            opacity: 0.95;
+            box-shadow: 0 8px 22px rgba(124,92,255,0.12);
+        }
+        .nav-logo img { transition: transform 300ms ease, filter 300ms ease; }
+        .nav-logo:hover img { transform: scale(1.06); filter: drop-shadow(0 10px 30px rgba(124,92,255,0.14)); }
+
+        /* hide indicator on small screens where nav collapses */
+        @media (max-width: 900px) {
+            .nav-indicator { display: none; }
+            .main-header nav ul { gap: 0.5rem; }
+        }
+
+        /* Footer: improved mobile spacing for social links */
+        @media (max-width: 600px) {
+            .main-footer .footer-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                padding: 1.5rem 1rem;
+            }
+            .main-footer .footer-slogan {
+                text-align: center;
+                margin-bottom: 0.25rem;
+            }
+            .main-footer .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem 0.5rem;
+                margin: 0.25rem 0;
+            }
+            .main-footer .footer-links a {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.35rem 0.6rem;
+                border-radius: 10px;
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.03);
+                font-size: 0.95rem;
+            }
+            .main-footer .footer-links img.social-icon {
+                width: 20px;
+                height: 20px;
+            }
+            .main-footer .footer-legal {
+                margin-top: 0.5rem;
+                text-align: center;
+                font-size: 0.95rem;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Tracking System Initialized</h1>
-        <p>Your session has been securely logged to the Deep Pebble database.</p>
-        <p>Check the Tkinter GUI for live analytics.</p>
+<div id="ip-warning-overlay" class="warning-overlay">
+    <div class="glass-card warning-modal">
+        <div class="warning-icon">⚠️</div>
+        <h2>Privacy Notice</h2>
+        <p>By entering this site, you acknowledge that your <strong>IP Address</strong> is being recorded for security and analytics purposes by the Deep Pebble Monitoring System.</p>
+        <button class="btn btn-primary" onclick="dismissWarning()">I Understand & Proceed</button>
     </div>
+</div>
+
+    <div class="gradient-bg"></div>
+
+    <div class="parallax-layer layer-1" data-speed="-8"></div> <div class="parallax-layer layer-2" data-speed="-5"></div> <div class="parallax-layer layer-3" data-speed="-2"></div> <div class="particle-cursor"></div>
+
+    <header class="main-header glass-nav">
+        <div class="nav-content">
+            <a href="#home" class="nav-logo"><img src="Assets/deeptech.png" alt="Deep Pebble Tech" style="height:44px; display:inline-block; vertical-align:middle;"></a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">
+                <span class="hamburger" aria-hidden="true"></span>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#yovedha">Yovedha.ai</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+            <a href="#community" class="btn btn-secondary">Join Beta</a>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="home">
+            <section class="hero-section" aria-label="Homepage hero">
+                <div class="hero-container">
+                    <div class="hero-copy">
+                        <div class="hero-kicker">Beta • Launch 2026</div>
+                        <h1 class="hero-title">Deep Pebble — AI That Understands India</h1>
+                        <p class="hero-subtitle">Human-first, local-first AI: privacy-preserving assistants, regional language understanding, and tools that simplify real work.</p>
+
+                        <div class="hero-cta" role="group" aria-label="Primary calls to action">
+                            <a href="#yovedha" class="btn btn-primary">Explore Yovedha</a>
+                            <a href="#community" class="btn btn-secondary">Join Beta</a>
+                        </div>
+
+                        <div class="hero-tags" aria-hidden="true">
+
+                            <span>Finny || Vaayu ||</span>
+                            <span> Yovedha.ai</span>
+                        </div>
+                    </div>
+
+                    <!-- Decorative text mural (behind hero copy) -->
+                    <div class="hero-mural" aria-hidden="true">Innovation Simplified</div>
+
+                    <div class="hero-visual-wrap" aria-hidden="true">
+                        <div class="hero-visual">
+                            <img src="Assets/hero-illustration.svg" alt="Hero illustration" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-down-indicator" aria-hidden="true">
+                    <span>Scroll</span>
+                    <div class="line"></div>
+                </div>
+            </section>
+
+            <section class="page-section teaser-section animate-on-scroll">
+                <h2 class="section-title">Innovating for a Billion Dreams</h2>
+                <p class="section-subtitle">We are simplifying complex technology to build a more intuitive, intelligent, and inclusive future for India.</p>
+                <div class="teaser-grid">
+                    <a href="#about" class="glass-card teaser-card">
+                        <h3>Our Vision</h3>
+                        <p>Building foundational AI that understands India's unique diversity.</p>
+                        <span>Learn More &rarr;</span>
+                    </a>
+                    <a href="#yovedha" class="glass-card teaser-card">
+                        <h3>Our Suite</h3>
+                        <p>Integrated tools and assistants built around Yovedha.ai.</p>
+                        <span>Discover Yovedha &rarr;</span>
+                    </a>
+                    <a href="#yovedha" class="glass-card teaser-card">
+                        <h3>Yovedha.ai</h3>
+                        <p>Meet the next-generation AI operating system for your life.</p>
+                        <span>Discover Yovedha &rarr;</span>
+                    </a>
+                </div>
+            </section>
+        </section>
+
+        <div class="gradient-divider animate-on-scroll"></div>
+
+        <section id="about" class="content-page">
+            <section class="page-hero animate-on-scroll">
+                <h1 class="page-title">Building AI for Bharat.</h1>
+                <p class="page-subtitle">We are at the dawn of India's decade, and AI is the force multiplier. Our mission is to build foundational, human-centric AI that speaks the language of every Indian.</p>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <div class="split-layout">
+                    <div class="split-content">
+                        <h2 class="section-title">Our Vision</h2>
+                        <p>To be the simplifying layer between complex technology and human potential. We envision an India where AI is not a barrier, but a bridge—empowering creators, entrepreneurs, and communities to accelerate their growth on a global scale.</p>
+                    </div>
+                    <div class="split-visual">
+                        <div class="visual-placeholder cultural-texture">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <div class="split-layout reverse">
+                    <div class="split-content">
+                        <h2 class="section-title">Our Mission</h2>
+                        <p>Our work is guided by three principles: <strong>Simplify</strong> the user experience, <strong>Empower</strong> with intelligent tools, and <strong>Accelerate</strong> progress. We are not just building products; we are crafting ecosystems that learn, adapt, and grow with our users.</p>
+                    </div>
+                    <div class="split-visual">
+                        <div class="floating-pebbles-container">
+                            <div class="pebble p1" data-speed="1"></div>
+                            <div class="pebble p2" data-speed="-2"></div>
+                            <div class="pebble p3" data-speed="0.5"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <h2 class="section-title text-center">Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="glass-card value-card">
+                        <h3>Transparency</h3>
+                        <p>Clear models, clear policies. We believe trust is built when the "black box" is made of glass.</p>
+                    </div>
+                    <div class="glass-card value-card">
+                        <h3>Trust</h3>
+                        <p>Your data is yours. Our hybrid architecture prioritizes on-device processing for ultimate privacy.</p>
+                    </div>
+                    <div class="glass-card value-card">
+                        <h3>Precision</h3>
+                        <p>Delivering accurate, context-aware insights that matter, cutting through the noise.</p>
+                    </div>
+                    <div class="glass-card value-card">
+                        <h3>Creativity</h3>
+                        <p>Building tools that act as creative co-pilots, augmenting human imagination, not replacing it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <h2 class="section-title text-center">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <h4>2026: The Birth of Deep Pebble</h4>
+                            <p>Deep Pebble Tech is founded on the idea that even the smallest, simplest innovations can create massive waves.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <h4>2026: Core Models & Beta Launch</h4>
+                            <p>Development of proprietary models trained on diverse Indian linguistic and cultural datasets. Launch of Yovedha.ai and the initial product suite (Finny, Vaayu) in closed beta.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <h4>Future: The Wave</h4>
+                            <p>Scaling our simplified innovations to empower the next billion users across India and the world.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <div class="gradient-divider animate-on-scroll"></div>
+
+        <!-- Products section removed. Content consolidated into Yovedha.ai pages and demo. -->
+
+        <div class="gradient-divider animate-on-scroll"></div>
+
+        <section id="yovedha" class="content-page">
+            <section class="page-hero yovedha-hero animate-on-scroll">
+                <img src="Assets/yove.png" alt="Yovedha logo" class="yovedha-hero-logo product-logo" style="width:120px;height:120px;object-fit:contain;">
+                <h1 class="page-title">Yovedha.ai</h1>
+                <p class="page-subtitle">The OS for your mind. An AI partner that remembers, reasons, and creates with you.</p>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <h2 class="section-title text-center">A friend, not just an assistant.</h2>
+                <p class="section-subtitle text-center">Talk to Yovedha like you'd talk to a person. It understands nuance, context, and even your unspoken sentiment.</p>
+                <div class="chat-mockup glass-card">
+                    <div class="chat-bubble user">
+                        <p>Ugh, I'm feeling so overwhelmed, I have that big presentation tomorrow and I haven't even started the slides for the market analysis section.</p>
+                    </div>
+                    <div class="chat-bubble ai">
+                        <p>I understand. That sounds stressful. Don't worry, we can tackle this. I've already pulled the Q3 market data we discussed last week and the competitor reports from Finny. </p>
+                        <p>I can draft three key insight slides right now. Want me to start with that?</p>
+                    </div>
+                    <div class="chat-bubble user">
+                        <p>Yes, please. You're a lifesaver.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <div class="split-layout">
+                    <div class="split-content">
+                        <h2 class="section-title">Speaks your language. Remembers your life.</h2>
+                        <p>Choose from multiple voice styles and accents, trained on diverse Indian phonetics. Yovedha doesn't just hear you; it listens.</p>
+                        <p>Its powerful memory graph grows with you, connecting conversations, files, and ideas into a personal knowledge base that only you control.</p>
+                        <div class="audio-wave">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        </div>
+                    </div>
+                    <div class="split-visual">
+                        <div class="visual-placeholder memory-graph" aria-hidden="true">
+                            <!-- Inline SVG memory graph: nodes pulse and connect to demonstrate Yovedha memory -->
+                            <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yovedha memory graph mockup">
+                                <defs>
+                                    <linearGradient id="mg1" x1="0" x2="1">
+                                        <stop offset="0%" stop-color="#FFB86B"/>
+                                        <stop offset="50%" stop-color="#FF6B9A"/>
+                                        <stop offset="100%" stop-color="#7C5CFF"/>
+                                    </linearGradient>
+                                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="8" result="b"/>
+                                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                    </filter>
+                                </defs>
+                                <g stroke="url(#mg1)" stroke-opacity="0.18" stroke-width="2" fill="none">
+                                    <path d="M120 200 C180 120 260 100 340 160"/>
+                                    <path d="M340 160 C440 220 480 300 360 320"/>
+                                    <path d="M180 220 C120 280 60 300 80 220"/>
+                                </g>
+                                <!-- nodes -->
+                                <g class="nodes" filter="url(#glow)">
+                                    <circle class="memory-node pulse" id="n1" cx="120" cy="200" r="12" fill="url(#mg1)"/>
+                                    <circle class="memory-node" id="n2" cx="260" cy="140" r="9" fill="#FFFFFF"/>
+                                    <circle class="memory-node pulse" id="n3" cx="340" cy="160" r="14" fill="#FFFFFF"/>
+                                    <circle class="memory-node" id="n4" cx="420" cy="240" r="10" fill="#FFFFFF"/>
+                                    <circle class="memory-node" id="n5" cx="80" cy="280" r="8" fill="#FFFFFF"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Yovedha demo area: interactive visual + chat / controls -->
+            <section class="page-section animate-on-scroll">
+                <div class="yovedha-demo">
+                    <div class="demo-panel glass-card">
+                        <img src="Assets/panel-illustration-1.svg" alt="Memory graph illustration" style="width:100%;height:auto;margin-bottom:1rem;">
+                        <h3>Interactive Memory Graph</h3>
+                        <p class="section-subtitle">Click nodes to highlight memories and generate a short insight using Yovedha's private graph.</p>
+                        <div class="memory-graph" id="memory-graph">
+                            <!-- existing inline SVG retained for interactive demo (visual backup) -->
+                            <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="mg2" x1="0" x2="1">
+                                        <stop offset="0%" stop-color="#FFB86B"/>
+                                        <stop offset="50%" stop-color="#FF6B9A"/>
+                                        <stop offset="100%" stop-color="#7C5CFF"/>
+                                    </linearGradient>
+                                </defs>
+                                <g stroke="url(#mg2)" stroke-opacity="0.12" stroke-width="2" fill="none">
+                                    <path d="M120 200 C180 120 260 100 340 160"/>
+                                    <path d="M340 160 C440 220 480 300 360 320"/>
+                                    <path d="M180 220 C120 280 60 300 80 220"/>
+                                </g>
+                                <g class="nodes">
+                                    <circle class="memory-node" id="m1" cx="120" cy="200" r="12"/>
+                                    <circle class="memory-node" id="m2" cx="260" cy="140" r="9"/>
+                                    <circle class="memory-node" id="m3" cx="340" cy="160" r="14"/>
+                                    <circle class="memory-node" id="m4" cx="420" cy="240" r="10"/>
+                                    <circle class="memory-node" id="m5" cx="80" cy="280" r="8"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="yovedha-cta">
+                            <button id="demo-voice" class="btn btn-secondary">Try Voice</button>
+                            <div id="demo-status" style="color:var(--color-text-muted); font-weight:600;">Idle</div>
+                        </div>
+                    </div>
+
+                    <div class="demo-panel glass-card">
+                        <img src="Assets/panel-illustration-2.svg" alt="Chat illustration" style="width:100%;height:auto;margin-bottom:1rem;">
+                        <h3>Live Assist Chat</h3>
+                        <div class="chat-mockup" id="demo-chat">
+                            <div class="chat-bubble ai" id="ai-1">
+                                <p>Here's a short summary of the connected memories. Click "Generate Insight" to see Yovedha in action.</p>
+                            </div>
+                            <div class="chat-bubble user">
+                                <p>Show me a concise insight.</p>
+                            </div>
+                        </div>
+                        <div class="audio-wave" aria-hidden="true">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-section animate-on-scroll">
+                <h2 class="section-title text-center">Secure. Private. Yours.</h2>
+                <p class="section-subtitle text-center">Yovedha operates on a <strong>Local + Cloud hybrid model</strong>. Sensitive reasoning and personal memories are processed on your device, ensuring ultimate privacy. For heavy-lifting tasks, it securely connects to our cloud, giving you the best of both worlds.</p>
+                <div class="hybrid-visual">
+                    <div class="glass-card hybrid-card">
+                        <h3>Local Inference</h3>
+                        <p>Personal Memory, Conversations, Quick Tasks. (Always Private)</p>
+                    </div>
+                    <div class="hybrid-connector">&harr;</div>
+                    <div class="glass-card hybrid-card">
+                        <h3>Cloud Inference</h3>
+                        <p>Complex Analysis, Model Updates, Web Search. (Opt-in)</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <div class="gradient-divider animate-on-scroll"></div>
+
+        <section id="faq" class="content-page">
+            <section class="page-hero animate-on-scroll">
+                <h1 class="page-title">Deep, Transparent Answers.</h1>
+                <p class="page-subtitle">Trust is built on clarity. Here are the answers to your most pressing questions.</p>
+            </section>
+
+            <section class="page-section faq-container">
+                <div class="faq-accordion">
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>How do you handle data privacy?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our philosophy is "privacy-by-design." We use a hybrid inference model, meaning sensitive data and personal memories (especially in Yovedha.ai) are processed <strong>on your device</strong> whenever possible. Data sent to the cloud is anonymized, encrypted, and used only to improve your specific experience, never for third-party advertising. You have granular control to view and delete your data at any time.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>What is your AI model architecture (simplified)?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We use a proprietary "Model-of-Models" (MoM) approach. Instead of one giant, costly model, we use a smart orchestrator that routes your request to the best, most efficient model for the job. This includes our custom-trained models (for Indian languages and context), fine-tuned open-source models (for general reasoning), and specialized models (for finance in Finny or logistics in Vaayu). This makes our system faster, cheaper, and more precise.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>How does Yovedha's "memory" work?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yovedha builds a secure, local "knowledge graph" on your device. This isn't a recording; it's a map of interconnected concepts, entities, and memories. When you mention "that presentation I gave in Mumbai," it can link "presentation" to "Mumbai" and the date "Last March." This graph is encrypted and inaccessible to anyone but you, allowing Yovedha to have long-term context without compromising your privacy.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>What is your pricing model?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our entire suite is currently in a <strong>free, invitation-only beta</strong>. We are focused on building a world-class product and community. We will introduce transparent pricing models in the future, which will likely include a generous free tier for personal use and pro tiers for advanced features and business use. We will *never* sell your personal data to offset costs.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>Why "Innovations Simplified!"?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>"Innovation" is often synonymous with "complexity." We believe the greatest innovation is to make powerful technology invisible, intuitive, and effortless. "Simplified" is our promise. It's not about "dumbing down" the tech; it's about engineering it so intelligently that it disappears, leaving only the solution. A simple pebble can start a wave—that's our goal.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card animate-on-scroll">
+                        <button class="faq-question">
+                            <span>How do you approach Ethical AI in India?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>This is our most important work. It means:
+                            <br>1. <strong>Diverse Data:</strong> Training our models on audited, diverse Indian datasets (languages, dialects, cultural contexts) to reduce bias.
+                            <br>2. <strong>Human-in-the-Loop:</strong> Building tools for collaboration, not just automation, ensuring human oversight.
+                            <br>3. <strong>Algorithmic Transparency:</strong> Providing clear explanations for AI-driven decisions, especially in Finny and Vaayu.
+                            <br>4. <strong>Open Dialogue:</strong> Working with our community and Indian regulatory bodies to shape a responsible AI framework.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </section>
+
+        <div class="gradient-divider animate-on-scroll"></div>
+
+        <section id="community" class="content-page">
+            <section class="page-hero community-hero animate-on-scroll">
+                <h1 class="page-title">Join the Innovation.</h1>
+                <p class="page-subtitle">Our products are built with our community. Join the conversation, share your feedback, and help us build the future of AI for India.</p>
+            </section>
+
+            <!-- Community social cards removed as requested -->
+
+            <section class="page-section animate-on-scroll">
+                <div class="cta-banner glass-card">
+                    <h2>Be the First to Experience Yovedha.ai</h2>
+                    <p>We are rolling out invites in waves. Sign up to secure your spot on the beta list.</p>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=deeppebbletech@gmail.com&su=Beta%20Access%20Request" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Request Beta Access</a>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-slogan">
+                <span>Deep Pebble Tech:</span>
+                <span class="animated-gradient-text">Innovation Simplified !.</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://x.com/deeppebbletech" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Twitter">
+                    <img src="Assets/twitter.svg" alt="Twitter" class="social-icon">
+                    X
+                </a>
+                <a href="https://www.linkedin.com/company/deep-pebble/posts/?feedView=all" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                    <img src="Assets/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    LinkedIn
+                </a>
+                <a href="https://chat.whatsapp.com/FF1x1wwTbQhCcqzBaoTzFo" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">
+                    <img src="Assets/whatsapp.svg" alt="WhatsApp" class="social-icon">
+                    WhatsApp
+                </a>
+                <a href="https://www.instagram.com/deeppebbletech?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+                    <img src="Assets/instagram.svg" alt="Instagram" class="social-icon">
+                    Instagram
+                </a>
+                <a href="https://discord.gg/sPcdvZpv" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+                    <img src="Assets/discord.svg" alt="Discord" class="social-icon">
+                    Discord
+                </a>
+            </div>
+            <div class="footer-legal">
+                &copy; 2026 Deep Pebble Tech. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function dismissWarning() {
+    const overlay = document.getElementById('ip-warning-overlay');
+    overlay.classList.add('hidden');
+    // Optional: Play a sound or start your animations here
+    console.log("User acknowledged IP tracking.");
+}
+        /*
+            DEEP PEBBLE TECH - MAIN.JS
+            Interactions:
+            1. Particle Cursor Trail
+            2. Parallax Scroll
+            3. Scroll-Reveal Animations (IntersectionObserver)
+            4. FAQ Accordion
+            5. Mouse Orbit Glow
+            6. Single-Page Navigation (Active Link Highlighting & Smooth Scroll)
+        */
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply per-letter splitting for hero mural to create overfaded letters
+            (function applyHeroMuralSplits(){
+                const mural = document.querySelector('.hero-mural');
+                if (!mural) return;
+                const raw = mural.textContent || '';
+                const chars = Array.from(raw);
+                mural.textContent = '';
+                chars.forEach((ch, i) => {
+                    const span = document.createElement('span');
+                    span.textContent = ch;
+                    if (/\s/.test(ch)) {
+                        span.className = 'mural-space';
+                    } else if (i % 7 === 0) {
+                        span.className = 'mural-fade-strong';
+                    } else if (i % 4 === 0) {
+                        span.className = 'mural-fade-mid';
+                    } else {
+                        span.className = 'mural-base';
+                    }
+                    mural.appendChild(span);
+                });
+            })();
+
+            // --- 1. PARTICLE CURSOR ---
+            const particleContainer = document.querySelector('.particle-cursor');
+            if (particleContainer) {
+                document.addEventListener('mousemove', (e) => {
+                    createParticle(e.clientX, e.clientY);
+                });
+            }
+
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+
+                // Add random trajectory
+                const tx = (Math.random() - 0.5) * 100;
+                const ty = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+
+                particleContainer.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+
+            // --- 2. PARALLAX SCROLL ---
+            const parallaxLayers = document.querySelectorAll('.parallax-layer[data-speed]');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.pageYOffset;
+
+                parallaxLayers.forEach(layer => {
+                    const speed = parseFloat(layer.getAttribute('data-speed'));
+                    const yPos = scrollY * speed / 10;
+                    layer.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+
+            // --- 3. SCROLL-REVEAL ANIMATIONS ---
+            const revealElements = document.querySelectorAll('.animate-on-scroll');
+            const revealObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const revealObserverCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            };
+
+            const revealObserver = new IntersectionObserver(revealObserverCallback, revealObserverOptions);
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- 4. FAQ ACCORDION ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        item.classList.remove('active');
+                        answer.style.maxHeight = 0;
+                    }
+                });
+            });
+
+            // --- 5. MOUSE ORBIT GLOW ---
+            document.addEventListener('mousemove', (e) => {
+                document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+                document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+            });
+
+            // --- 6. SINGLE-PAGE NAVIGATION ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.main-header nav a');
+            const logoLink = document.querySelector('.nav-logo');
+            const allLinks = Array.from(navLinks);
+            if (logoLink) allLinks.push(logoLink);
+
+            // A. Active link highlighting on scroll
+            const navObserverOptions = {
+                root: null,
+                rootMargin: `-${document.documentElement.clientHeight * 0.3}px 0px -${document.documentElement.clientHeight * 0.7}px 0px`,
+                threshold: 0
+            };
+
+            const navObserverCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            const isActive = href === `#${id}`;
+                            link.classList.toggle('active', isActive);
+                            if (isActive) {
+                                link.setAttribute('aria-current', 'page');
+                            } else {
+                                link.removeAttribute('aria-current');
+                            }
+                        });
+                    }
+                });
+            };
+
+            const sectionObserver = new IntersectionObserver(navObserverCallback, navObserverOptions);
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // B. Smooth scroll on link click
+            allLinks.forEach(link => {
+                // guard against falsy values
+                if (!link) return;
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href') || '';
+                    // Only intercept internal hash links
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                            // update aria-current for nav links when clicked
+                            navLinks.forEach(nl => nl.removeAttribute('aria-current'));
+                            if (link.classList.contains('active')) {
+                                link.setAttribute('aria-current', 'page');
+                            } else {
+                                link.setAttribute('aria-current', 'page');
+                            }
+                            // move focus for accessibility
+                            link.focus({ preventScroll: true });
+                        }
+                    }
+                });
+            });
+
+            // --- 7. MOBILE NAV TOGGLE ---
+            const navToggle = document.querySelector('.nav-toggle');
+            const navContent = document.querySelector('.nav-content');
+            const mainNav = document.getElementById('main-nav');
+            if (navToggle && navContent && mainNav) {
+                navToggle.addEventListener('click', () => {
+                    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', String(!expanded));
+                    navContent.classList.toggle('open');
+                    // when opening, move focus to first nav link
+                    if (!expanded) {
+                        const firstLink = mainNav.querySelector('a');
+                        if (firstLink) firstLink.focus();
+                    }
+                });
+
+                // Close nav when a link is clicked (mobile)
+                mainNav.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'A' && navContent.classList.contains('open')) {
+                        navContent.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // --- Interactive Nav Indicator ---
+            (function setupNavIndicator(){
+                const nav = document.getElementById('main-nav');
+                if (!nav) return;
+                const ul = nav.querySelector('ul');
+                if (!ul) return;
+                const indicator = document.createElement('div');
+                indicator.className = 'nav-indicator';
+                nav.appendChild(indicator);
+
+                const links = Array.from(nav.querySelectorAll('a'));
+                let active = links.find(l => l.classList.contains('active')) || links[0];
+
+                function updateTo(el){
+                    if (!el) return;
+                    const r = el.getBoundingClientRect();
+                    const nr = nav.getBoundingClientRect();
+                    const left = r.left - nr.left;
+                    indicator.style.width = `${Math.max(r.width, 28)}px`;
+                    indicator.style.transform = `translateX(${left}px)`;
+                }
+
+                // initialize after small timeout to allow layout
+                setTimeout(() => updateTo(active), 60);
+
+                links.forEach(l => {
+                    l.addEventListener('mouseenter', () => updateTo(l));
+                    l.addEventListener('focus', () => updateTo(l));
+                    l.addEventListener('mouseleave', () => updateTo(active));
+                    l.addEventListener('blur', () => updateTo(active));
+                    l.addEventListener('click', () => { active = l; updateTo(active); });
+                });
+
+                window.addEventListener('resize', () => updateTo(active));
+            })();
+
+            // <--- YOVEDHA DEMO INTERACTIONS --->
+            (function setupYovedhaDemo(){
+                const graph = document.getElementById('memory-graph');
+                if (!graph) return;
+
+                const nodes = Array.from(graph.querySelectorAll('.memory-node'));
+                const status = document.getElementById('demo-status');
+                const voiceBtn = document.getElementById('demo-voice');
+                const chat = document.getElementById('demo-chat');
+
+                // node click -> highlight
+                nodes.forEach(n => {
+                    n.style.cursor = 'pointer';
+                    n.addEventListener('click', () => {
+                        nodes.forEach(x => x.classList.remove('active'));
+                        n.classList.add('active');
+                        if (status) status.textContent = 'Node selected';
+                    });
+                });
+
+                // (Generate Insight removed) -- feature disabled
+
+                // Try voice: quick status ping + subtle bar animation trigger
+                if (voiceBtn) {
+                    voiceBtn.addEventListener('click', () => {
+                        if (status) status.textContent = 'Playing voice...';
+                        const bars = document.querySelectorAll('.audio-wave .bar');
+                        let t = 0;
+                        const id = setInterval(() => {
+                            bars.forEach(b => b.style.height = `${10 + Math.floor(Math.random() * 40)}px`);
+                            t += 200;
+                            if (t > 1400) {
+                                clearInterval(id);
+                                bars.forEach(b => b.style.height = '20px');
+                                if (status) status.textContent = 'Idle';
+                            }
+                        }, 200);
+                    });
+                }
+
+                // subtle continuous pulse on demo nodes
+                nodes.forEach((n, idx) => {
+                    const delay = Math.random() * 1600;
+                    n.style.animationDelay = `${delay}ms`;
+                });
+            })();
+
+        });
+    </script>
+    <script>
+        // Small voice demo for the "Try Voice" button
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('demo-voice');
+            const status = document.getElementById('demo-status');
+            if (!btn) return;
+
+            const sampleText = "Hello, I'm Yovedha. I can help summarize your memories and generate insights. How can I assist you today?";
+
+            function choosePreferredVoice() {
+                const voices = speechSynthesis.getVoices();
+                // prefer Indian English voice if available, else any English voice
+                return voices.find(v => /en-?in|india|indian/i.test(v.name) || /en-?in|india|indian/i.test(v.lang))
+                    || voices.find(v => /en/i.test(v.lang))
+                    || voices[0];
+            }
+
+            btn.addEventListener('click', () => {
+                if (typeof speechSynthesis === 'undefined') {
+                    if (status) status.textContent = 'Speech not supported';
+                    return;
+                }
+
+                // If already speaking, stop
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                    if (status) status.textContent = 'Idle';
+                    return;
+                }
+
+                const utter = new SpeechSynthesisUtterance(sampleText);
+                const preferred = choosePreferredVoice();
+                if (preferred) utter.voice = preferred;
+                utter.rate = 1;
+                utter.pitch = 1;
+                utter.onstart = () => { if (status) status.textContent = 'Speaking...'; };
+                utter.onend = () => { if (status) status.textContent = 'Idle'; };
+                utter.onerror = () => { if (status) status.textContent = 'Error'; };
+
+                // voices may not be loaded immediately in some browsers
+                if (speechSynthesis.getVoices().length === 0) {
+                    speechSynthesis.onvoiceschanged = () => {
+                        const v = choosePreferredVoice();
+                        if (v) utter.voice = v;
+                        speechSynthesis.speak(utter);
+                    };
+                } else {
+                    speechSynthesis.speak(utter);
+                }
+            });
+        });
+    </script>
+<div class="permanent-tracker-box">
+    <div class="tracker-header">
+        <span class="recording-pulse"></span>
+        <span class="header-label">IP MONITORED</span>
+    </div>
+    <div class="tracker-content">
+        <p class="tracker-msg">ACTIVE</p>
+        <h2 id="live-ip">IP HIDDEN</h2>
+        <p class="tracker-desc">This connection is monitored by DeepPebble systems for development</p>
+    </div>
+    <div class="tracker-footer">
+        STATUS: SECURE
+    </div>
+</div>
 </body>
 </html>
